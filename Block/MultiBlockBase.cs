@@ -39,9 +39,11 @@ namespace StoneQuarry
             return OnGettingBroken(player, coreBlockSel, itemslot, remainingResistance, dt, counter);
         }
 
-        public virtual BlockSounds GetSounds(IBlockAccessor blockAccessor, BlockPos pos, ItemStack stack, Vec3i offset)
+        public virtual BlockSounds GetSounds(IBlockAccessor blockAccessor, BlockSelection blockSel, ItemStack stack, Vec3i offset)
         {
-            return GetSounds(blockAccessor, pos + offset.AsBlockPos, stack);
+            BlockSelection coreBlockSel = blockSel.Clone();
+            coreBlockSel.Position += offset.AsBlockPos;
+            return GetSounds(blockAccessor, coreBlockSel, stack, offset);
         }
 
         public virtual bool MBDoParticalSelection(IWorldAccessor world, BlockPos pos, Vec3i offset)
